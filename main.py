@@ -36,7 +36,7 @@ for i in range(len(df)):
             connection.starttls()
             connection.login(user=MY_EMAIL, password=MY_PASSWORD)
             connection.sendmail(from_addr=MY_EMAIL,
-                                to_addrs=MY_EMAIL,
+                                to_addrs=dt.email[i],
                                 msg=f"Subject: Birthday Wisher\n\n{final_letter}")
 
         # -------------- RETURNING ORIGINAL TEXT -------------- #
