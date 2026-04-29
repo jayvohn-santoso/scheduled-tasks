@@ -16,6 +16,9 @@ today = dt.datetime.now()
 
 df = pandas.read_csv("birthdays.csv")
 
+MY_EMAIL = os.environ.get("MY_EMAIL")
+        MY_PASSWORD = os.environ.get("MY_PASSWORD")
+
 # -------------- CHECKING BIRTHDAYS -------------- #
 for i in range(len(df)):
     if int(df.month[i]) == today.month and int(df.day[i]) == today.day:
@@ -28,12 +31,9 @@ for i in range(len(df)):
         letter_content = content.replace("[NAME]", df.name[i])
         
         # -------------- SENDING EMAILS -------------- #
-        MY_EMAIL = os.environ.get("MY_EMAIL")
-        MY_PASSWORD = os.environ.get("MY_PASSWORD")
-
         with smtplib.SMTP("smtp.gmail.com", 587) as connection:
             connection.starttls()
             connection.login(user=MY_EMAIL, password=MY_PASSWORD)
             connection.sendmail(from_addr=MY_EMAIL,
-                                to_addrs=df.email[i],
+                                to_addrs=MY_EMAIL,
                                 msg=f"Subject: Birthday Wisher\n\n{letter_content}")
